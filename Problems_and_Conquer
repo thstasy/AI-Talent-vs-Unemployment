@@ -1,0 +1,72 @@
+Throughout the process of analyzing the AI Global Index and Unemployment datasets, we encountered several challenges that required debugging. Below is a detailed log of the problems we faced and how we resolved them.
+
+---
+
+1. Issue: NameError: `pd` is not defined
+
+Problem:
+We encountered a NameError while attempting to load the datasets using the pd.read_csv() function, which occurs when the Pandas library is not imported.
+
+Solution:
+We solved this by importing the Pandas library at the start of the script:
+import pandas as pd
+
+---
+
+2. Issue: SyntaxError: Non-printable character U+00A0
+
+Problem:
+A SyntaxError was triggered due to the presence of non-printable characters in the dataset (specifically U+00A0) while loading one of the CSV files. These characters sometimes exist when data is copied or exported from other environments.
+
+Solution:
+We addressed this by manually cleaning the dataset and replacing the non-printable characters. Additionally, we utilized the skipinitialspace=True option in Pandas to handle any leading/trailing spaces.
+
+---
+
+3. Issue: ValueError: unsupported operand type(s) for +: 'int' and 'str'
+
+Problem:
+This error occurred while attempting to fill missing values for numeric columns. It was caused by non-numeric values (strings) in a column we expected to be entirely numeric.
+
+Solution:
+We resolved this by explicitly selecting only numeric columns using select_dtypes() and ensuring only numeric operations were performed.
+
+---
+
+4. Issue: KeyError: 'SalePrice' not found in dataset
+
+Problem:
+While trying to access the SalePrice column in the test dataset, we encountered a KeyError because the column was missing in the test data.
+
+Solution:
+To fix this, we ensured that the SalePrice column was only referenced in the training dataset and ignored during predictions on the test dataset.
+
+---
+
+5. Issue: ValueError: x and y must have same first dimension
+
+Problem:
+While plotting Unemployment Rate Trends (2020-2023), we encountered a ValueError due to mismatched dimensions of the x and y axes.
+
+Solution:
+We fixed this by ensuring that both axes had the same number of elements before plotting. We also added a check to ensure the country exists in the dataset before plotting it.
+
+---
+
+6. Issue: Boxplot Error for Region Column
+
+Problem:
+While trying to create a boxplot of unemployment rates by region, we encountered an error because the dataset did not contain a Region column.
+
+Solution:
+We resolved this by switching to the Country column instead of Region, and the boxplot was successfully generated.
+
+---
+
+7. Issue: Graph Window Not Large Enough for Cropping
+
+Problem:
+When generating bar charts, the window was not large enough for easy viewing and cropping of the images.
+
+Solution:
+We increased the figure size and DPI (dots per inch) for better resolution and ensured that the plots were saved as image files for easier use.
